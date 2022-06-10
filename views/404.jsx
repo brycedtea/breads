@@ -6,7 +6,7 @@ function Show404 ({bread}) {
     // console.log(bread.name)
       return (
         <Default>
-            <h3>404</h3>
+            <h3>OH SNAP! It's a 404 page :[</h3>
             <li><a href="/breads">Go home</a></li>
         </Default>
 
