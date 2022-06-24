@@ -3,16 +3,21 @@ const breads = express.Router()
 const Baker = require('../models/baker.js')
 const Bread = require('../models/bread.js')
 
-// INDEX
+// Index:
 breads.get('/', (req, res) => {
-  Bread.find()
+  Baker.find()
+    .then(foundBakers => {
+      Bread.find()
       .then(foundBreads => {
           res.render('index', {
               breads: foundBreads,
+              bakers: foundBakers,
               title: 'Index Page'
           })
       })
+    })
 })
+
 
 module.exports = breads
 
@@ -27,28 +32,35 @@ breads.get('/new', (req, res) => {
 })
 
 
-//EDIT
+// EDIT
 breads.get('/:id/edit', (req, res) => {
-  Bread.findById(req.params.id) 
-    .then(foundBread => { 
-      res.render('edit', {
-        bread: foundBread 
-      })
+  Baker.find()
+    .then(foundBakers => {
+        Bread.findById(req.params.id)
+          .then(foundBread => {
+            res.render('edit', {
+                bread: foundBread, 
+                bakers: foundBakers 
+            })
+          })
     })
 })
 
-// SHOW
+
 // SHOW
 breads.get('/:id', (req, res) => {
   Bread.findById(req.params.id)
+      .populate('baker')
       .then(foundBread => {
-        const bakedBy = foundBread.getBakedBy() 
-        console.log(bakedBy)
         res.render('show', {
             bread: foundBread
         })
       })
-    })
+      .catch(err => {
+        res.send('404')
+      })
+})
+
 
 // CREATE
 breads.post('/', (req, res) => {
