@@ -1,8 +1,11 @@
 {
-  "name": "breads",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "name": "deployment",        
+"version": "1.0.0",
+"engines": {
+  "node": " v16.15.1"
+},
+
+ 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -28,3 +31,4 @@
     "mongoose": "^6.3.8"
   }
 }
+
